@@ -52,7 +52,7 @@ else
 fi
 
 piphandler="`pip freeze | wc -l | awk '{print $1 }'`"
-gemhandler="`gem list | wc -l | awk '{print $1-2}'`"
+gemhandler="`gem list | wc -l | awk '{print $1-3}'`"
 
 ip="`ifconfig |  awk '/inet / { if ($2 != "127.0.0.1")  print $2; }'`"
 
