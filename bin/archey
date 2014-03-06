@@ -51,8 +51,8 @@ else
   packagehandler="`brew list -l | wc -l | awk '{print $1 }'`"
 fi
 
-piphandler="`pip freeze | wc -l | awk '{print $1 }'`"
-gemhandler="`gem list | wc -l | awk '{print $1-3}'`"
+#piphandler="`pip freeze | wc -l | awk '{print $1 }'`"
+#gemhandler="`gem list | wc -l | awk '{print $1-3}'`"
 
 ip="`ifconfig |  awk '/inet / { if ($2 != "127.0.0.1")  print $2; }'`"
 
@@ -66,12 +66,12 @@ uptimeText="${textColor}Uptime:${normal}"
 shellText="${textColor}Shell:${normal}"
 terminalText="${textColor}Terminal:${normal}"
 packagehandlerText="${textColor}Brew:${normal}"
-piphandlerText="${textColor}Pip:${normal}"
-gemhandlerText="${textColor}Gems:${normal}"
+#piphandlerText="${textColor}Pip:${normal}"
+#gemhandlerText="${textColor}Gems:${normal}"
 cpuText="${textColor}CPU:${normal}"
 memoryText="${textColor}Memory:${normal}"
 diskText="${textColor}Disk:${normal}"
-ipText="${GREEN}IP:${LGREEN}"
+ipText="${textColor}IP:${LGREEN}"
 
 echo -e "
 
@@ -83,10 +83,10 @@ ${YELLOW}     ######################           $uptimeText $uptime
 ${YELLOW}    #####################             $shellText $shell
 ${LRED}    ####################${normal}              $terminalText $terminal
 ${RED}    ####################              $packagehandlerText $packagehandler
-${RED}    #####################             $piphandlerText $piphandler $gemhandlerText $gemhandler
-${PURPLE}     ######################           $cpuText $cpu
-${PURPLE}      ####################            $memoryText $ram
-${BLUE}        ################              $diskText $disk
-${BLUE}         ####     ##### ${normal}              $ipText $ip ${normal}
+${RED}    #####################             $cpuText $cpu
+${PURPLE}     ######################           $memoryText $ram             
+${PURPLE}      ####################            $diskText $disk                
+${BLUE}        ################              $ipText $ip ${normal} 
+${BLUE}         ####     ##### ${normal}     
 
 "
