@@ -33,6 +33,7 @@ normal=$(tput sgr0)
 
 # Add a -c option to enable classic color logo
 if [[ $1 == "-c" ]] || [[ $1 == "--color" ]] || [[ $2 == "-c" ]] || [[ $2 == "--color" ]]; then
+  LGREEN='\033[01;32m'
   GREEN='\033[00;32m'
   YELLOW='\033[00;33m'
   LRED='\033[01;31m'
@@ -50,6 +51,11 @@ else
   packagehandler="`brew list -l | wc -l | awk '{print $1 }'`"
 fi
 
+piphandler="`pip freeze | wc -l | awk '{print $1 }'`"
+gemhandler="`gem list | wc -l | awk '{print $1-2}'`"
+
+ip="`ifconfig |  awk '/inet / { if ($2 != "127.0.0.1")  print $2; }'`"
+
 userText="${textColor}User:${normal}"
 
 
@@ -59,25 +65,28 @@ kernelText="${textColor}Kernel:${normal}"
 uptimeText="${textColor}Uptime:${normal}"
 shellText="${textColor}Shell:${normal}"
 terminalText="${textColor}Terminal:${normal}"
-packagehandlerText="${textColor}Packages:${normal}"
+packagehandlerText="${textColor}Brew:${normal}"
+piphandlerText="${textColor}Pip:${normal}"
+gemhandlerText="${textColor}Gems:${normal}"
 cpuText="${textColor}CPU:${normal}"
 memoryText="${textColor}Memory:${normal}"
 diskText="${textColor}Disk:${normal}"
+ipText="${GREEN}IP:${LGREEN}"
 
 echo -e "
 
-${GREEN}                 ###
-${GREEN}               ####                   $userText $user
-${GREEN}               ###                    $hostnameText $hostname
-${GREEN}       #######    #######             $distroText $distro
-${YELLOW}     ######################           $kernelText $kernel
-${YELLOW}    #####################             $uptimeText $uptime
-${LRED}    ####################              $shellText $shell
-${RED}    ####################              $terminalText $terminal
-${RED}    #####################             $packagehandlerText $packagehandler
+${GREEN}                 ###                  $userText $user
+${GREEN}               ####                   $hostnameText $hostname
+${GREEN}               ###                    $distroText $distro
+${GREEN}       #######    #######             $kernelText $kernel
+${YELLOW}     ######################           $uptimeText $uptime
+${YELLOW}    #####################             $shellText $shell
+${LRED}    ####################${normal}              $terminalText $terminal
+${RED}    ####################              $packagehandlerText $packagehandler
+${RED}    #####################             $piphandlerText $piphandler $gemhandlerText $gemhandler
 ${PURPLE}     ######################           $cpuText $cpu
 ${PURPLE}      ####################            $memoryText $ram
 ${BLUE}        ################              $diskText $disk
-${BLUE}         ####     ##### ${normal}
+${BLUE}         ####     ##### ${normal}              $ipText $ip ${normal}
 
 "
